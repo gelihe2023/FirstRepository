@@ -73,7 +73,7 @@ class Flights(models.Model):
 # Añadimos una función para comprobar que todo vaya bien
 
     def is_valid_flight(self):
-        return self.origin != self.destination and self.duration > 0
+        return self.origin != self.destination or self.duration > 0
      # El test que hacemos es comprobar si origen y destino son distintos y la duración > 0
 
 # TESTS.PY se utilizará para programar tests para el projecto.
