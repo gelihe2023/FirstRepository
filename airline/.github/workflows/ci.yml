@@ -1,0 +1,14 @@
+name: Testing
+on: push 
+# Indica que cada vez que archivos se mandan al repository
+# PUSH: Se ejecuta el test
+
+jobs:
+  test_project:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Window unit tests
+      run: |
+        pip3 install --user django
+        python3 manage.py test

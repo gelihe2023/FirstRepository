@@ -1,0 +1,16 @@
+{% extends "flights/layout.html" %}
+
+{% block body %}
+
+    <h1> FLIGHTS </h1>
+    <ul>
+        {% for vuelo in vuelos %}
+        
+        <!-- Aquí vamos a convertir el inicio de cada linea en la lista en un link al VUELO-->
+        <li> <a href="{% url 'vuelo' vuelo.id %}"> Flight {{vuelo.id}} </a>: {{vuelo.origin}} to {{vuelo.destination}} </li>
+    
+        {% endfor %}
+      
+    </ul>
+{% endblock %}
+    

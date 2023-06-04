@@ -1,0 +1,45 @@
+{% extends "flights/layout.html" %}
+
+{% block body %}
+
+    <h1> Vuelo {{ vol.id }} </h1>
+    <ul>
+        <li> Origen: {{ vol.origin }} </li>
+        <li> Destino: {{ vol.destination }} </li>
+        <li> Duración: {{ vol.duration }} minutes</li>      
+    </ul>
+    <h1> Pasajeros del vuelo {{vol.id}} </h1>
+    <ul>
+        {% for cliente in pasajeros %}
+        <li> {{cliente}} </li>
+        {% empty %}
+        <li> Sin pasajeros </li>
+        {% endfor %}
+    </ul>   
+
+    <div>
+        <!-- Se crea formulario apuntando a función "book" con parametro flight.id
+        de esa página en la que estamos por el método "post"-->
+
+    <form action="{% url 'book' vol.id %}" method="post">
+        <!-- Sistema de SEGURIDAD / IDENTIFICACION DJANGO-->
+        {% csrf_token %} 
+        <!-- Metodo de formulario: SELECT, se selecciona de una lista
+        aquello que se seleccione se transmitirá como dato "passenger.id"-->
+        <select name="passante" id="">
+            <!-- Los pasajeros que están en la lista son los que AUN no tienen ese vuelo -->
+            {% for passenger in no_aun %}
+            <!-- el "passanger.id" se pasará como variable "passante" hacia la funcion "views.book"-->
+                <option value="{{ passenger.id }}">{{ passenger }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit">
+    </form>
+    </div>
+    <div>
+        <!-- Esta parte sirve para crear un link que nos lleve a la página index-->
+        <a href="{% url 'indexo' %}"> All Flights </a>
+    </div>
+     
+
+{% endblock %}
